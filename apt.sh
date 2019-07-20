@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # INIT: arguments number checking
-if [ $# -lt 2	]
+if [ $# -lt 1	]
 then
-	echo "USAGE : `basename $0` <mode: search/show/install/reinstall/remove/clean> <program_name (s)>/<pattern>
+	echo "USAGE : `basename $0` <mode: search/show/install/reinstall/remove/clean/updatesrc/update> <program_name (s)>/<pattern>
 DESCRIPTION: simple interface to not use apt-get and apt-cache: 5 modes: search/show/install/reinstall/remove
 DEPENDENCIES: apt-get and apt-cache
 EXAMPLE: apt remove skype 
@@ -15,6 +15,8 @@ EXAMPLE: apt remove skype
 # else if mode = reinstall: reinstall the list of programs $*
 # else if mode = remove: remove the list of programs $* all the config files and dependent libraries (cleanly, without altering libraries of other programs)
 # else if mode = clean: clean the database of apt to speed-up apt operations
+# else if mode = updatesrc: does a global update of package src list: apt-get update
+# else if mode = update: upgrade a specific package
 '
 	exit
 fi
@@ -50,4 +52,14 @@ elif [ $selector == "clean" ]
 then 
 	echo "dpkg --clear-avail; dpkg --forget-old-unavail"
 	dpkg --clear-avail; dpkg --forget-old-unavail
+elif [ $selector == "updatesrc" ]
+then 
+	echo "apt-get update"
+	apt-get update
+elif [ $selector == "update" ]
+then 
+	echo "apt-get --only-upgrade install $*"
+	apt-get --only-upgrade install $*
+else
+	apt
 fi
