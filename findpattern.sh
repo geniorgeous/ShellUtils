@@ -100,7 +100,7 @@ else
 	elif [ $4 ]
 		then
 			param4extension=$4		
-			find $1 -type f -iname "*$param4extension"  -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -a --color=auto "$param3searchpattern"
+			find $param2searchdirectory -type f -iname "*$param4extension"  -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -a --color=auto "$param3searchpattern"
 	else
 		grep -rna "$param3searchpattern" $param2searchdirectory      |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -a --color=auto "$param3searchpattern"
 	fi
