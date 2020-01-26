@@ -17,6 +17,7 @@ EXAMPLE: apt remove skype
 # else if mode = clean: clean the database of apt to speed-up apt operations
 # else if mode = updatesrc: does a global update of package src list: apt-get update
 # else if mode = update: upgrade a specific package
+# else if mode = updatable: list the packages that can be updated
 '
 	exit
 fi
@@ -60,6 +61,10 @@ elif [ $selector == "update" ]
 then 
 	echo "apt-get --only-upgrade install $*"
 	apt-get --only-upgrade install $*
+elif [ $selector == "updatable" ]
+then 
+	echo "apt list --upgradable"
+	apt list --upgradable
 else
 	apt
 fi
