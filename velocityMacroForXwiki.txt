@@ -1,0 +1,120 @@
+++++ Basic Tree macro
+
+{{tree links="true" limit="25"}}
+{{velocity}}
+{{html wiki=true}}
+<ul>
+#foreach ($child in $sorttool.sort($doc.getChildren() ) )
+  <li class="jstree-open">
+    [[$child]]
+    <ul>
+    #foreach ($subchild in $sorttool.sort( $xwiki.getDocument($child).getChildren() ) )
+      <li class="jstree-open">
+        [[$subchild]]
+        <ul>
+        #foreach ($subsubchild in $sorttool.sort($xwiki.getDocument($subchild).getChildren() ) )
+          <li class="jstree-open">
+            [[$subsubchild]]
+            <ul>
+            #foreach ($subsubsubchild in $sorttool.sort($xwiki.getDocument($subsubchild).getChildren() ) )
+              <li class="jstree-open">
+                [[$subsubsubchild]]
+              </li>
+            #end
+            </ul>
+          </li>
+        #end
+        </ul>
+      </li>
+    #end
+    </ul>
+  </li>
+#end
+</ul>
+{{/html}}
+{{/velocity}}
+{{/tree}}
+
+
+++++ Without the Tree macro
+
+{{velocity}}
+{{html wiki=true}}
+<ul>
+#foreach ($child in $sorttool.sort($doc.getChildren() ) )
+  <li>
+    [[$child]]
+    <ul>
+    #foreach ($subChild in $sorttool.sort( $xwiki.getDocument($child).getChildren() ) )
+      <li>
+        [[$subChild]]
+        <ul>
+        #foreach ($subSubChild in $sorttool.sort($xwiki.getDocument($subChild).getChildren() ) )
+          <li>
+            [[$subSubChild]]
+            <ul>
+            #foreach ($subSubSubChild in $sorttool.sort($xwiki.getDocument($subSubChild).getChildren() ) )
+              <li>
+                [[$subSubSubChild]]
+              </li>
+            #end
+            </ul>
+          </li>
+        #end
+        </ul>
+      </li>
+    #end
+    </ul>
+  </li>
+#end
+</ul>
+{{/html}}
+{{/velocity}}
+
+++++ With display of page state
+
+{{velocity}}
+{{html wiki=true}}
+<ul>
+#foreach ($child in $sorttool.sort($doc.getChildren() ) )
+  <li>
+    [[$child]]
+    #set($childDoc = $xwiki.getDocument($child))
+    #if( $childDoc.getAttachment('state_toupdate.txt') )<span style="background-color: #f1c33f; ">ToUpdate</span>#end
+    #if( $childDoc.getAttachment('state_outdated.txt') )<span style="background-color: #fb8b14; ">Outdated</span>#end
+    <ul>
+    #foreach ($subChild in $sorttool.sort( $xwiki.getDocument($child).getChildren() ) )
+      <li>
+        [[$subChild]]
+        #set($subChildDoc = $xwiki.getDocument($subChild))
+        #if( $subChildDoc.getAttachment('state_toupdate.txt') )<span style="background-color: #f1c33f; ">ToUpdate</span>#end
+        #if( $subChildDoc.getAttachment('state_outdated.txt') )<span style="background-color: #fb8b14; ">Outdated</span>#end
+        <ul>
+        #foreach ($subSubChild in $sorttool.sort($xwiki.getDocument($subChild).getChildren() ) )
+          <li>
+            [[$subSubChild]]
+		    #set($subSubChildDoc = $xwiki.getDocument($subSubChild))
+		    #if( $subSubChildDoc.getAttachment('state_toupdate.txt') )<span style="background-color: #f1c33f; ">ToUpdate</span>#end
+		    #if( $subSubChildDoc.getAttachment('state_outdated.txt') )<span style="background-color: #fb8b14; ">Outdated</span>#end
+            <ul>
+            #foreach ($subSubSubChild in $sorttool.sort($xwiki.getDocument($subSubChild).getChildren() ) )
+              <li>
+                [[$subSubSubChild]]
+			    #set($subSubSubChildDoc = $xwiki.getDocument($subSubSubChild))
+			    #if( $subSubSubChildDoc.getAttachment('state_toupdate.txt') )<span style="background-color: #f1c33f; ">ToUpdate</span>#end
+			    #if( $subSubSubChildDoc.getAttachment('state_outdated.txt') )<span style="background-color: #fb8b14; ">Outdated</span>#end
+              </li>
+            #end
+            </ul>
+          </li>
+        #end
+        </ul>
+      </li>
+    #end
+    </ul>
+  </li>
+#end
+</ul>
+{{/html}}
+{{/velocity}}
+
