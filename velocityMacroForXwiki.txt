@@ -1,3 +1,24 @@
+++++ Macro for Page header
+
+{{box cssClass="floatinginfobox" title="**Contents**"}}
+{{toc numbered=true /}}
+{{/box}}
+
+{{numberedheadings/}}
+
+{{velocity}}
+#if( $doc.getAttachment('state_toupdate.txt') )
+(% style="width:450px" %)
+|(% style="width:150px" %)Page State:|=(% style="color:grey; width:100px" %) Up-to-date|=(% style="background-color:#f1c33f; width:100px" %) To update|=(% style="color:grey; width:100px" %) Outdated
+#elseif( $doc.getAttachment('state_outdated.txt') )
+(% style="width:450px" %)
+|(% style="width:150px" %)Page State:|=(% style="color:grey; width:100px" %) Up-to-date|=(% style="color:grey; width:100px" %) To update|=(% style="background-color:#fb8b14; width:100px" %) Outdated
+#else
+(% style="width:450px" %)
+|(% style="width:150px" %)Page State:|=(% style="background-color:#4bc800; width:100px" %) Up-to-date|=(% style="color:grey; width:100px" %) To update|=(% style="color:grey; width:100px" %) Outdated
+#end
+{{/velocity}}
+
 ++++ Basic Tree macro
 
 {{tree links="true" limit="25"}}
@@ -93,16 +114,16 @@
         #foreach ($subSubChild in $sorttool.sort($xwiki.getDocument($subChild).getChildren() ) )
           <li>
             [[$subSubChild]]
-		    #set($subSubChildDoc = $xwiki.getDocument($subSubChild))
-		    #if( $subSubChildDoc.getAttachment('state_toupdate.txt') )<span style="background-color: #f1c33f; ">ToUpdate</span>#end
-		    #if( $subSubChildDoc.getAttachment('state_outdated.txt') )<span style="background-color: #fb8b14; ">Outdated</span>#end
+            #set($subSubChildDoc = $xwiki.getDocument($subSubChild))
+            #if( $subSubChildDoc.getAttachment('state_toupdate.txt') )<span style="background-color: #f1c33f; ">ToUpdate</span>#end
+            #if( $subSubChildDoc.getAttachment('state_outdated.txt') )<span style="background-color: #fb8b14; ">Outdated</span>#end
             <ul>
             #foreach ($subSubSubChild in $sorttool.sort($xwiki.getDocument($subSubChild).getChildren() ) )
               <li>
                 [[$subSubSubChild]]
-			    #set($subSubSubChildDoc = $xwiki.getDocument($subSubSubChild))
-			    #if( $subSubSubChildDoc.getAttachment('state_toupdate.txt') )<span style="background-color: #f1c33f; ">ToUpdate</span>#end
-			    #if( $subSubSubChildDoc.getAttachment('state_outdated.txt') )<span style="background-color: #fb8b14; ">Outdated</span>#end
+                #set($subSubSubChildDoc = $xwiki.getDocument($subSubSubChild))
+                #if( $subSubSubChildDoc.getAttachment('state_toupdate.txt') )<span style="background-color: #f1c33f; ">ToUpdate</span>#end
+                #if( $subSubSubChildDoc.getAttachment('state_outdated.txt') )<span style="background-color: #fb8b14; ">Outdated</span>#end
               </li>
             #end
             </ul>
