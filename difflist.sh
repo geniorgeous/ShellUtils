@@ -1,18 +1,15 @@
 #!/bin/bash
 
-# affiche le formalisme attendu du lancement du script
 usage () {
 	echo "USAGE :
-`basename $0` <list_of_files.txt> <folder_1> <folder_2>
+`basename $0` <fileList.txt> <relative_path_1> <relative_path_2>
 
-# list_of_files.txt is expected to be a list of filenames, 1 filename per line
-# It computes the diff on each of the file listed in list_of_files.txt: diff  folder_1/filenameK folder_2/filenameK
-# folder_1 and folder_2 should be the relative path from the shell folder to the target folders, respectively
-"
-
+# This script is a loop of diff command on each file in the 2 different folders targetted by relative paths.
+# Each line of fileList.txt is a filename. It can contain spaces.
+# So it runs on each filename: \"diff \$2/\$filename \$3/\$filename\""
 }
 
-# si la dernière commande a renvoyé un message d'erreur, affiche le message d'erreur et sort
+# If the last command failed, it desplays error and it exits
 error () {
 	if [ $? != 0 ]
         	then usage
@@ -21,13 +18,13 @@ error () {
 	fi
 }
 
-# vérification du nombre d'arguments
+# INIT: arguments number checking
 if [ $# != 3  ]
 	then usage
 	exit
 fi
 
-# vérification des arguments
+# check of arguments
 message=`ls $1`
 error
 
@@ -38,28 +35,19 @@ message=`ls $3`
 error
 
 
-# number of lines in the filename list txt file
 num_lines=`cat $1 | wc -l`
 
-# loop on list_of_files.txt
-k=0
-while [ $k -lt $num_lines ]
+i=0
+while [ $i -lt $num_lines ]
 do
 
-	k=`expr $k + 1`
-	# line number K of the list_of_files.txt is the filenameK
-	filenameK=`head -$k $1 | tail -1`
-	# test if the line is empty
-	if [ $filenameK ] 
+	i=`expr $i + 1`
+	# get the line number i
+	filename=`head -$i $1 | tail -1`
+	# test if the line of fileList.txt is not exmpty
+	if [ "$filename" ]
 		then
-        	echo "diff $2/$filenameK $3/$filenameK"
-	        diff "$2/$filenameK" "$3/$filenameK"
+        	echo "diff $2/$filename $3/$filename"
+	        diff "$2/$filename" "$3/$filename"
 	fi
 done
-
-
-
-
-
-
-
