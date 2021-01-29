@@ -26,7 +26,7 @@ fi
 
 basicFileName=`getunextendedname "$1"`
 
-gcc -g -o "$basicFileName" "$1"	-I$bin/utils
+gcc -o "$basicFileName" "$1"
 
 
 

@@ -5,12 +5,12 @@
 if [ $# == 0  ]
     then 
     echo "
-USAGE : `basename $0` <r/s> <filename_pattern> action (with [file] to refer to file)
+USAGE : `basename $0` <r/s> <filename_pattern> <action (with [file] to refer to file)>
 DESCRIPTION: 
 VERSION$Revision: 1.3 $
 DEPENDANCIES: none
-EXAMPLE: cmdonfiles \"*.jpg\" ls -l [file] 
-EXAMPLE2: cmdonfiles \"dscn*jpg\" renamefilename -a [file] 0 4 ph
+EXAMPLE: cmdonfiles s \"*.jpg\" ls -l [file] 
+EXAMPLE2: cmdonfiles s \"dscn*jpg\" renamefilename -a [file] 0 4 ph
 "
     exit
 fi
@@ -45,7 +45,7 @@ if [ $1 = "s" ]
 		  action4=${action3/\[file\]/$file} # this replaces only 1 occurrence of [file]
 		  action5=${action4/\[file\]/$file} # this replaces only 1 occurrence of [file]
 		  cmd=${action5/\[file\]/$file} # this replaces only 1 occurrence of [file]
-		  cecho RED "$cmd"
+		  cecho BLUE "$cmd"
 		  # run $cmd
 	      $cmd
 	  fi
@@ -68,7 +68,7 @@ elif [ $1 = "r" ]
 		  action4=${action3/\[file\]/$file} # this replaces only 1 occurrence of [file]
 		  action5=${action4/\[file\]/$file} # this replaces only 1 occurrence of [file]
 		  cmd=${action5/\[file\]/$file} # this replaces only 1 occurrence of [file]
-		  cecho RED "$cmd"
+		  cecho BLUE "$cmd"
 		  # run $cmd
 	      $cmd
 	  fi

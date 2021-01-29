@@ -28,9 +28,9 @@ for i in `ls "$directory_name"`;
 					then
 					mv -v "$directory_name/$i" "$directory_name/$targetName"
 			fi
-			if [ $1 = "r" ] && [ -d "$directory_name/$targetName" ]
+			if [ $1 = "-r" ] && [ -d "$directory_name/$targetName" ]
 					then
-					rmspacer r "$directory_name/$targetName"
+					rmspace -r "$directory_name/$targetName"
 			fi
 } 
 done

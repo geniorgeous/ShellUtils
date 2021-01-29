@@ -5,6 +5,8 @@ if [ $# != 3 ]
     then
     echo "USAGE : `basename $0` <filename.pdf> <first_page_to_get> <last_page_to_get>
 DESCRIPTION:  for the pdf $1, generates a pdf starting at $2 and ending at $3 page
+DEPENDENCIES: gs (ghostscript)
+EXAMPLE: `basename $0` Prospecting-Objection-Handling.pdf 1 3
 "
     exit
 fi
@@ -16,4 +18,4 @@ if [ ! -e "$1" ]
                 exit
 fi
 
-gswin64 -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dFirstPage=$2 -dLastPage=$3 -sOutputFile=$1.from.$2.to.$3.pdf $1
+gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dFirstPage=$2 -dLastPage=$3 -sOutputFile=$1.from.$2.to.$3.pdf $1
