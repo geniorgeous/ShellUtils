@@ -30,7 +30,7 @@ if [ $1 = "i" ]
 
 		if [ `echo $param5foldertoremove | grep -o "^E\-" | wc -l` = 1 ]
 			then
-			folderToRemove=`echo $param5foldertoremove | cut -c3-`
+			folderToRemove=`echo $param5foldertoremove | sed "s/^\.\///g"`
 			if [ `echo $folderToRemove | grep -o "/" | wc -c` = 2 ]
 				then
 					folderToRemove1=`echo $folderToRemove | cut -d \/ -f1`
@@ -39,18 +39,18 @@ if [ $1 = "i" ]
 					echo $folderToRemove2
 					if [ "$param4extension" = "any" ]
 						then
-						find $param2searchdirectory  -type f -not -path "*$folderToRemove1*" -not -path "*$folderToRemove2*" -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -ia --color=auto "$param3searchpattern"
+						find $param2searchdirectory  -type f -not -path "*$folderToRemove1*" -not -path "*$folderToRemove2*" -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -ia --color=auto "$param3searchpattern"
 					else
-						find $param2searchdirectory  -type f -iname "*$param4extension" -not -path "*$folderToRemove1*" -not -path "*$folderToRemove2*" -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -ia --color=auto "$param3searchpattern"
+						find $param2searchdirectory  -type f -iname "*$param4extension" -not -path "*$folderToRemove1*" -not -path "*$folderToRemove2*" -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -ia --color=auto "$param3searchpattern"
 
 					fi
 
 			else
 					if [ "$param4extension" = "any" ]
 						then
-						find $param2searchdirectory  -type f -not -path "*$folderToRemove*" -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -ia --color=auto "$param3searchpattern"
+						find $param2searchdirectory  -type f -not -path "*$folderToRemove*" -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -ia --color=auto "$param3searchpattern"
 					else
-						find $param2searchdirectory  -type f -iname "*$param4extension" -not -path "*$folderToRemove*" -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -ia --color=auto "$param3searchpattern"
+						find $param2searchdirectory  -type f -iname "*$param4extension" -not -path "*$folderToRemove*" -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -ia --color=auto "$param3searchpattern"
 
 					fi
 			fi
@@ -59,9 +59,9 @@ if [ $1 = "i" ]
 	elif [ $4 ]
 	then
 		param4extension=$4
-		find $param2searchdirectory -type f -iname "*$param4extension"  -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -ia --color=auto "$param3searchpattern"
+		find $param2searchdirectory -type f -iname "*$param4extension"  -exec grep  -Hnia "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -ia --color=auto "$param3searchpattern"
 	else
-		grep -rnia "$param3searchpattern" $param2searchdirectory      |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -ia --color=auto "$param3searchpattern"
+		grep -rnia "$param3searchpattern" $param2searchdirectory      |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -ia --color=auto "$param3searchpattern"
 	fi
 
 else
@@ -71,7 +71,7 @@ else
 		param5foldertoremove=$5
 		if [ `echo $param5foldertoremove | grep -o "^E\-" | wc -l` = 1 ]
 			then
-			folderToRemove=`echo $param5foldertoremove | cut -c3-`
+			folderToRemove=`echo $param5foldertoremove | sed "s/^\.\///g"`
 			if [ `echo $folderToRemove | grep -o "/" | wc -c` = 2 ]
 				then
 					folderToRemove1=`echo $folderToRemove | cut -d \/ -f1`
@@ -80,18 +80,18 @@ else
 					echo $folderToRemove2
 					if [ "$param4extension" = "any" ]
 						then
-						find $param2searchdirectory  -type f -not -path "*$folderToRemove1*" -not -path "*$folderToRemove2*" -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -ia --color=auto "$param3searchpattern"
+						find $param2searchdirectory  -type f -not -path "*$folderToRemove1*" -not -path "*$folderToRemove2*" -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -ia --color=auto "$param3searchpattern"
 					else
-						find $param2searchdirectory  -type f -iname "*$param4extension" -not -path "*$folderToRemove1*" -not -path "*$folderToRemove2*" -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -a --color=auto "$param3searchpattern"
+						find $param2searchdirectory  -type f -iname "*$param4extension" -not -path "*$folderToRemove1*" -not -path "*$folderToRemove2*" -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -a --color=auto "$param3searchpattern"
 
 					fi
 
 			else
 					if [ "$param4extension" = "any" ]
 						then
-						find $param2searchdirectory  -type f -not -path "*$folderToRemove*" -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -a --color=auto "$param3searchpattern"
+						find $param2searchdirectory  -type f -not -path "*$folderToRemove*" -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -a --color=auto "$param3searchpattern"
 					else
-						find $param2searchdirectory  -type f -iname "*$param4extension" -not -path "*$folderToRemove*" -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -a --color=auto "$param3searchpattern"
+						find $param2searchdirectory  -type f -iname "*$param4extension" -not -path "*$folderToRemove*" -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -a --color=auto "$param3searchpattern"
 
 					fi
 			fi
@@ -100,9 +100,9 @@ else
 	elif [ $4 ]
 		then
 			param4extension=$4		
-			find $param2searchdirectory -type f -iname "*$param4extension"  -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -a --color=auto "$param3searchpattern"
+			find $param2searchdirectory -type f -iname "*$param4extension"  -exec grep  -Hna "$param3searchpattern" {} \;     |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -a --color=auto "$param3searchpattern"
 	else
-		grep -rna "$param3searchpattern" $param2searchdirectory      |  grep -va '.hg' | grep -va " matches$" | cut -c3- | grep -a --color=auto "$param3searchpattern"
+		grep -rna "$param3searchpattern" $param2searchdirectory      |  grep -va '.hg' | grep -va " matches$" | sed "s/^\.\///g" | grep -a --color=auto "$param3searchpattern"
 	fi
 
 

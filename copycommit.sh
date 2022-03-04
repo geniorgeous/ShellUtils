@@ -2,11 +2,11 @@
 
 usage () {
 	echo "USAGE :
-`basename $0` <-i/-e> <commitcode/local>
+`basename $0` -e <folderToExport> OR `basename $0` -c <commitcode> OR `basename $0` -i <folerToImport>
 
-# -e mode (export): It creates a subfolder in geotmp folder containing all the files of a commit.
-# -i mode (import): It can be then reused to copy this bunch of file in a different branch
-# -s local (save)"
+# -e mode (export local): It creates a subfolder in geotmp folder containing all uncommited files.
+# -c mode (export commit): It creates a subfolder in geotmp folder containing all the files of a commit.
+# -i mode (import): It can be then reused to copy this bunch of file in a different branch"
 }
 
 # If the last command failed, it desplays error and it exits
@@ -30,9 +30,9 @@ commitId=$2
 initDir=`pwd`
 
 
-if [ $mode == "-e" ]
+if [ $mode == "-e" ] || [ $mode == "-c" ]
 	then
-		if [ $commitId == "local" ]
+		if [ $mode == "-e" ]
 		then
 			filelist=`git ls-files -m`
 		else
