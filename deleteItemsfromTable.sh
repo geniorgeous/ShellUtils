@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# INIT: arguments number checking
-if [ $# != 1	]
-then echo "USAGE : `basename $0` <table_name>
-DESCRIPTION: delete all the elements listed in ../items.json from the table_name
+usage () {
+    echo "USAGE : `basename $0` <prod/local> <table_name> <filename.json>
+DESCRIPTION: delete all the elements listed in filename.json from the table_name
 DEPENDENCIES: listItems
-EXAMPLE: `basename $0` StaticObject"
+EXAMPLE: `basename $0` local StaticObject ../items.json"
 
 echo 'PREREQUISITE: have a valid items.json like:
 {
@@ -33,16 +32,33 @@ echo 'PREREQUISITE: have a valid items.json like:
             ]
 }
 '
+}
+
+listItemsFunc () {
+    python -c "exec(\"import sys, json\\njsonData=json.load(sys.stdin)\\nfor item in jsonData['items']: print(item['id'] + ':' + str(item['version']))\")"
+}
+
+# INIT: arguments number checking
+if [ $# != 3 ]
+then usage
 	exit
 fi
 
-tableName="$1"
+if [ ! -e "$3" ]
+                then
+                echo "file \"$3\" does not exist"
+                exit
+fi
 
-tableList="Bucket BucketFolder DivElement DivLng2 Item ItemLng Location Media Post PostLng Specialty SpecialtyLng StaticObject Stella StellaPointer Tag TagLng User UserExtension UserPointer"
+mode="$1"
+tableName="$2"
+filename="$3"
+
+
+tableList="Bucket Geostruct Item ItemLng Location Pointer Section Specialty SpecialtyLng StaticObject Stella Tag TagLng User"
 
 if [[ $tableList =~ (^|[[:space:]])$tableName($|[[:space:]]) ]]
 then
-	for i in `listItems < ../items.json`; do newman run postman/deleteElementFromTable.postman_collection.json --environment postman/local.postman_environment.json --env-var  "table=$tableName" --env-var "id_version=$i"; done
+    for i in `listItemsFunc < $filename`; do newman run postman/deleteItem.postman_collection.json --environment postman/$mode.postman_environment.json --env-var  "table=$tableName" --env-var "id_version=$i"; done
 fi
-
 
