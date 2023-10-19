@@ -7,7 +7,7 @@ then
 DESCRIPTION: removes lines containing a pattern in -p mode, or removes 1 line or a lines range in -n mode
 DETAILS: in -n mode, argument is 1 positive integer, or range between 2 positive integers: I1,I2
          in -p mode, okay with special chars: ' \" /
-DEPENDANCIES: none
+DEPENDENCIES: none
 LIMITATION: CYGWIN does not have awk, but gawk
 "
 	exit

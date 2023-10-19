@@ -2,10 +2,10 @@
 
 # INIT: arguments number checking
 if [ $# != 1	]
-then 
+then
 	echo "USAGE : `basename $0` <filename>     (filename may contain spaces)
 DESCRIPTION: prints file chars in alternance with associated binary codes: displays the code of non-printable characters
-DEPENDANCIES: none
+DEPENDENCIES: none
 EXAMPLE: `basename $0` Unsupported.log"
 	echo 'RESULT:
 0000000   #   i   n   c   l   u   d   e       <   s   t   d   i   o   .   h   >  \n   #   i   n   c   l   u   d   e       <   s   t   d

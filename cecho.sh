@@ -3,10 +3,12 @@
 
 # INIT: arguments number checking
 if [ $# == 0  ]
-    then 
+    then
     echo "
 USAGE : `basename $0` COLOR=RED/GREEN/BLUE/PINK/CYAN/BOLD/GRAY/YELLOW <arguments>
-EXAMPLE: `basename $0` RED \"hello\" 
+DESCRIPTION: echo a text in a specific color
+DEPENDENCIES: none
+EXAMPLE: `basename $0` RED \"hello\"
 "
     exit
 fi
@@ -38,4 +40,3 @@ elif [ "$1" == "YELLOW" ]; then
 else
  echo -e "$arguments"
 fi
-

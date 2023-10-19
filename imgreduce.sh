@@ -5,7 +5,7 @@ if [ $# -lt 1	]
 then
 	echo "USAGE : `basename $0` <image_name> {<target_longest_side> {<min_kb_size>}}
 DESCRIPTION: resize the images by default in 1920 wide or 1920 high if image bigger. If target_longest_side, it does the same processing with target_longest_side instead of 1920. If min_kb_size & target_longest_side, it does the same processing with target_longest_side instead of 1920 only for images bigger than min_kb_size
-DEPENDANCIES: image-magick (convert tool), feh, local script cecho
+DEPENDENCIES: image-magick (convert tool), feh, local script cecho
 "
 	exit
 fi

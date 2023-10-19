@@ -13,25 +13,25 @@ fi
 
 if [ $1 = 90  ]
     then
-    pdftk $2 cat 1-endEAST output $dev/Temp/`basename $2`
+    pdftk $2 cat 1-endEAST output ~/Downloads/tmp/`basename $2`
     rm $2
-    mv $dev/Temp/`basename $2` $2
+    mv ~/Downloads/tmp/`basename $2` $2
     echo "rotate 90° $2"
     exit
 fi
 if [ $1 = 180  ]
     then
-    pdftk $2 cat 1-endSOUTH output $dev/Temp/`basename $2`
+    pdftk $2 cat 1-endSOUTH output ~/Downloads/tmp/`basename $2`
     rm $2
-    mv $dev/Temp/`basename $2` $2
+    mv ~/Downloads/tmp/`basename $2` $2
     echo "rotate 180° $2"
     exit
 fi
 if [ $1 = 270  ]
     then
-    pdftk $2 cat 1-endWEST output $dev/Temp/`basename $2`
+    pdftk $2 cat 1-endWEST output ~/Downloads/tmp/`basename $2`
     rm $2
-    mv $dev/Temp/`basename $2` $2
+    mv ~/Downloads/tmp/`basename $2` $2
     echo "rotate 270° $2"
     exit
 fi

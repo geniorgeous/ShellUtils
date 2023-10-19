@@ -31,6 +31,12 @@ then
 	exit
 fi
 
+file_line=`cat $filename | wc -l`
+if [ `expr $end_line` -gt $file_line ]
+then
+	end_line=$file_line
+fi
+
 
 width=`expr	$end_line \- $start_line + 1`
 

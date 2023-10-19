@@ -18,7 +18,7 @@ file="$3"
 # INIT: check $1 directory
 if [ ! -e "$file" ]
                 then
-                echo "file \"$1\" does not exist"
+                echo "file \"$file\" does not exist"
                 exit
 fi
 

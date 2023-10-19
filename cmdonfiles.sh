@@ -3,14 +3,12 @@
 
 # INIT: arguments number checking
 if [ $# == 0  ]
-    then 
+    then
     echo "
 USAGE : `basename $0` <r/s> <filename_pattern> <action (with [file] to refer to file)>
-DESCRIPTION: 
-VERSION$Revision: 1.3 $
-DEPENDANCIES: none
-EXAMPLE: cmdonfiles s \"*.jpg\" ls -l [file] 
-EXAMPLE2: cmdonfiles s \"dscn*jpg\" renamefilename -a [file] 0 4 ph
+DESCRIPTION: run a command on a list of files, using a reference [file] several times in commandline
+DEPENDENCIES: none
+EXAMPLE: cmdonfiles s \"dscn*jpg\" renamefilename -a [file] 0 4 ph
 "
     exit
 fi
@@ -70,8 +68,7 @@ elif [ $1 = "r" ]
 		  cmd=${action5/\[file\]/$file} # this replaces only 1 occurrence of [file]
 		  cecho BLUE "$cmd"
 		  # run $cmd
-	      $cmd
+	    $cmd
 	  fi
 	done
 fi
-
